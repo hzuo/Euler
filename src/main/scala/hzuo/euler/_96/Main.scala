@@ -4,7 +4,7 @@ import Sudoku._
 
 object Main extends App {
 
-  def parse(s: String): Puzzle = {
+  def createPuzzle(s: String): Puzzle = {
     val lines = scala.io.Source.fromString(s).getLines
     val parsed = for {
       (line, row) <- lines.zipWithIndex
@@ -18,7 +18,7 @@ object Main extends App {
     parsed.flatten.toMap
   }
 
-  def showBoard(board: Puzzle): String = {
+  def showPuzzle(board: Puzzle): String = {
     val rows =
       for (row <- 1 to 9) yield {
         for (col <- 1 to 9) yield {
@@ -35,8 +35,9 @@ object Main extends App {
     piece <- contents.split("""Grid (\d\d)""")
     trimmed = piece.trim
     if !trimmed.isEmpty
-  } yield parse(trimmed)
+  } yield createPuzzle(trimmed)
 
+  // val puzzlesPar = puzzles.par
   hzuo.euler.util.time {
     var sum = 0
     for (puzzle <- puzzles) {
