@@ -37,15 +37,14 @@ object Main extends App {
     if !trimmed.isEmpty
   } yield createPuzzle(trimmed)
 
-  // val puzzlesPar = puzzles.par
+  def extract(puzzle: Puzzle) = {
+    val solved = solve(puzzle).head
+    solved(1, 1) * 100 + solved(1, 2) * 10 + solved(1, 3)
+  }
+
+  val puzzlesPar = puzzles.par
   hzuo.euler.util.time {
-    var sum = 0
-    for (puzzle <- puzzles) {
-      val solved = solve(puzzle).head
-      val three = solved(1, 1) * 100 + solved(1, 2) * 10 + solved(1, 3)
-      sum += three
-    }
-    println(sum)
+    println(puzzlesPar.aggregate(0)(_ + extract(_), _ + _))
   }
 
 }
