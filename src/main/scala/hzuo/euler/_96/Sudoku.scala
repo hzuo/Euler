@@ -28,8 +28,8 @@ object Sudoku {
     def createRule(components: Iterable[Iterable[Component]]): Rule = {
       val invertedIndices = components.map(invertedIndex)
       val lookupPeers: Map[Square, Component] = squares.map { square =>
-        val sets = invertedIndices.map(invertedIndex => invertedIndex(square)).map(_.toSet)
-        (square, |*(sets))
+        val peers = invertedIndices.map(invertedIndex => invertedIndex(square).toSet)
+        (square, |*(peers))
       }(breakOut)
       (board, square) => board(square) match {
         case Right(d) => board
