@@ -43,8 +43,6 @@ object Main extends App {
   }
 
   val puzzlesPar = puzzles.par
-  hzuo.euler.util.time {
-    println(puzzlesPar.aggregate(0)(_ + extract(_), _ + _))
-  }
+  println(puzzlesPar.aggregate(0)(_ + extract(_), _ + _))
 
 }
