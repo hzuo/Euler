@@ -1,6 +1,6 @@
 package hzuo.euler._18
 
-object Main {
+object Main extends App {
 
   val raw =
     """
@@ -19,8 +19,36 @@ object Main {
 91 71 52 38 17 14 91 43 58 50 27 29 48
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
-    """
+      """
 
-    
-    
+  val parsed =
+    for {
+      line <- raw.split('\n')
+      if line.trim != ""
+    } yield {
+      for {
+        word <- line.split("""\s""")
+      } yield word.toInt
+    }
+
+  def max(ns: Array[Array[Int]]) = {
+    def anchored(r: Int, c: Int): Int = {
+      val me = ns(r)(c)
+      if (r == 0 && c == 0) {
+        me
+      } else {
+        val parentMaxes = for {
+          (r, c) <- List((r - 1, c - 1), (r - 1, c))
+          if 0 <= c && c <= r
+          parentMax = anchored(r, c)
+        } yield parentMax
+        parentMaxes.max + me
+      }
+    }
+    val lastRow = ns.length - 1
+    (for (c <- 0 to lastRow) yield anchored(lastRow, c)).max
+  }
+
+  println(max(parsed))
+
 }
