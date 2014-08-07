@@ -1,5 +1,5 @@
 name := "Euler"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.1"
 
 scalacOptions ++= Seq( "-deprecation", "-unchecked", "-feature" )

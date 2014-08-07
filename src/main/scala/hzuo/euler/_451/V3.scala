@@ -1,7 +1,6 @@
 package hzuo.euler._451
 
-// TODO: use Euler's totient function
-object Main extends App {
+object V3 extends App {
 
   def extendedEuclideanAlgorithm(m: Int, n: Int): (Int, Int, Int) = {
     if (n == 0) {
@@ -31,6 +30,8 @@ object Main extends App {
       }
     }.get
   }
+
+  println(I(20000000))
 
   val ret = (3 to 20000000).par.aggregate(0)(_ + I(_), _ + _)
   println(ret)
