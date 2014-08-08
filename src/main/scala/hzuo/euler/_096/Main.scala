@@ -43,6 +43,7 @@ object Main extends App {
   }
 
   val puzzlesPar = puzzles.par
-  println(puzzlesPar.aggregate(0)(_ + extract(_), _ + _))
+  val answer = puzzlesPar.aggregate(0)(_ + extract(_), _ + _)
+  println(answer)
 
 }

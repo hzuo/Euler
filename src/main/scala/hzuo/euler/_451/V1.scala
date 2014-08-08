@@ -2,21 +2,12 @@ package hzuo.euler._451
 
 import scala.collection.immutable.SortedSet
 
+import hzuo.euler.Common._
+
 object V1 extends App {
 
-  def factorSpace(n: Long) = (2L to scala.math.sqrt(n).toLong)
-  def isPrime(n: Long) = n > 1 && !factorSpace(n).exists(n % _ == 0)
-  def factors(n: Long) = factorSpace(n).flatMap { x =>
-    if (n % x == 0) {
-      List(x, n / x)
-    } else {
-      Nil
-    }
-  }
-
   def coprime(n: Long) = {
-    val primeFactors = factors(n).filter(isPrime)
-    (m: Long) => !primeFactors.exists(m % _ == 0)
+    (m: Long) => !primeFactors(n).exists(_ divides m)
   }
 
   def I(x: Long): Long = {
@@ -26,7 +17,7 @@ object V1 extends App {
     }.get
   }
 
-  val ret = (3L to 20000000L).par.aggregate(0L)(_ + I(_), _ + _)
-  println(ret)
+  val answer = (3L to 20000000L).par.aggregate(0L)(_ + I(_), _ + _)
+  println(answer)
 
 }

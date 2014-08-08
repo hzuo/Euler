@@ -1,9 +1,10 @@
 package hzuo.euler._20
 
+import hzuo.euler.Common._
+
 object Main extends App {
 
-  def fact(n: BigInt): BigInt = if (n == 0) 1 else n * fact(n - 1)
-
-  println(fact(100).toString.map(_.toString.toInt).sum)
+  val answer = factorial(100).toString.map(_.toString.toInt).sum
+  println(answer)
 
 }

@@ -111,6 +111,7 @@ object Main extends App {
     if line != ""
   } yield BigInt(line)
 
-  println(ns.sum.toString.take(10))
+  val answer = ns.sum.toString.take(10)
+  println(answer)
 
 }

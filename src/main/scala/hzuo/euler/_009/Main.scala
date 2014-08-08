@@ -13,12 +13,12 @@ object Main extends App {
     }.toList
   }
 
-  val ret = for {
+  val answer = for {
     solution <- solutions(1000, 3)
     if solution.forall(_ > 0)
     a :: b :: c :: Nil = solution
     if pythagoreanTriple(a, b, c)
   } yield a * b * c
-  println(ret)
+  println(answer)
 
 }

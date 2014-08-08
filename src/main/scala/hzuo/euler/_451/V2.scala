@@ -24,7 +24,7 @@ object V2 extends App {
     primeFactorTable.toMap
   }
 
-  hzuo.euler.util.time {
+  hzuo.euler.Common.time {
     primeFactorTable(20000000)
   }
 

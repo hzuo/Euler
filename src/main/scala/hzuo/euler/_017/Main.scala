@@ -8,6 +8,7 @@ object Main extends App {
     en(n).filter(_.isLetter).length + addAnd
   }
 
-  println((1 to 1000).map(countLetters).sum)
+  val answer = (1 to 1000).map(countLetters).sum
+  println(answer)
 
 }

@@ -1,19 +1,10 @@
 package hzuo.euler._12
 
+import hzuo.euler.Common._
+
 object Main extends App {
 
-  def divisors(n: Long) = (1L to scala.math.sqrt(n).toLong).flatMap { x =>
-    if (n % x == 0) {
-      List(x, n / x)
-    } else {
-      Nil
-    }
-  }.toSet
-
-  val nats: Stream[Int] = 1 #:: nats.map(_ + 1)
-  val triangulars = nats.scanLeft(0)(_ + _)
-
-  val satisfies = triangulars.filter(divisors(_).size > 500)
-  println(satisfies.head)
+  val answer = Stream.from(1).scanLeft(0)(_ + _).filter(factors(_).size > 500).head
+  println(answer)
 
 }

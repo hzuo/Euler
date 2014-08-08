@@ -31,9 +31,7 @@ object V3 extends App {
     }.get
   }
 
-  println(I(20000000))
-
-  val ret = (3 to 20000000).par.aggregate(0)(_ + I(_), _ + _)
-  println(ret)
+  val answer = (3 to 20000000).par.aggregate(0)(_ + I(_), _ + _)
+  println(answer)
 
 }
