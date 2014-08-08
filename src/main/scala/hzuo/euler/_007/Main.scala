@@ -1,4 +1,4 @@
-package hzuo.euler._7
+package hzuo.euler._007
 
 import scala.util.control.Breaks._
 

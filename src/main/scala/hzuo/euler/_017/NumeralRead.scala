@@ -1,4 +1,4 @@
-package hzuo.euler._17
+package hzuo.euler._017
 
 import scala.util.matching.Regex
 import scala.math.BigInt.int2bigInt

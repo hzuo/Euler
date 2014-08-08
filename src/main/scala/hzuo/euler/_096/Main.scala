@@ -1,4 +1,4 @@
-package hzuo.euler._96
+package hzuo.euler._096
 
 import Sudoku._
 

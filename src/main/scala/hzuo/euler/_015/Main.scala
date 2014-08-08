@@ -1,4 +1,4 @@
-package hzuo.euler._15
+package hzuo.euler._015
 
 import hzuo.euler.Common._
 

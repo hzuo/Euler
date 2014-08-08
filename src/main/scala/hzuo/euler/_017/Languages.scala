@@ -1,4 +1,4 @@
-package hzuo.euler._17
+package hzuo.euler._017
 
 object Languages {
 

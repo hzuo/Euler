@@ -1,10 +1,10 @@
-package hzuo.euler._2
+package hzuo.euler._002
 
 import hzuo.euler.Common._
 
 object Main extends App {
 
-  val answer = fibs.takeWhile(_ <= 4000000).filter(_ divides 2).sum
+  val answer = fibs().takeWhile(_ <= 4000000).filter(2 divides _.toLong).sum
   println(answer)
 
 }

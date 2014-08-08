@@ -8,18 +8,36 @@ object Common {
     println(System.currentTimeMillis - start)
   }
 
-  val fibs: Stream[Int] = 0 #:: 1 #:: fibs.zip(fibs.tail).map { n => n._1 + n._2 }
+  def fibs(): Iterator[BigInt] = new Iterator[BigInt] {
+    var a: BigInt = 0
+    var b: BigInt = 0
+    override val hasNext = true
+    override def next(): BigInt = {
+      if (a == 0) {
+        a = 1
+        1
+      } else if (b == 0) {
+        b = 1
+        1
+      } else {
+        val tmp = b
+        b = a + b
+        a = tmp
+        b
+      }
+    }
+  }
 
   def factorial(n: BigInt): BigInt = if (n == 0) 1 else n * factorial(n - 1)
 
   def streamFrom(n: Long) = Stream.iterate(n)(_ + 1L)
 
   implicit class Divides(val m: Long) extends AnyVal {
-    def divides(n: Long) = m % n == 0
+    def divides(n: Long) = n % m == 0L
   }
 
   def divisors(n: Long): Set[(Long, Long)] = {
-    if (n <= 0) throw new IllegalArgumentException
+    assume(n >= 1)
     val bound = Math.sqrt(n).toLong
     val divisors = for (x <- (2L to bound) if (x divides n)) yield (x, n / x)
     divisors.toSet
@@ -30,8 +48,8 @@ object Common {
   }
 
   def prime(n: Long): Boolean = {
-    if (n <= 1) throw new IllegalArgumentException
-    else divisors(n).isEmpty
+    assume(n > 1)
+    divisors(n).isEmpty
   }
 
   val primes: Stream[Long] = streamFrom(2L).filter(prime)
@@ -40,5 +58,7 @@ object Common {
   def primeFactors(n: Long): Set[Long] = {
     factors(n).filter(prime).toSet
   }
+
+  def d(n: Long): Long = 1L + factors(n).sum
 
 }

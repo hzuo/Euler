@@ -1,4 +1,4 @@
-package hzuo.euler._6
+package hzuo.euler._006
 
 object Main extends App {
 
