@@ -30,7 +30,6 @@ object Main extends App {
         if sumOfAbundants <= limit
       } yield sumOfAbundants
     }.toSet
-  println(isSumOfAbundants.last)
 
   val answer = universe.filterNot(isSumOfAbundants).sum
   println(answer)

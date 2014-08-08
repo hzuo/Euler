@@ -20,15 +20,16 @@ object Common {
   }
 
   def fibs(): Iterator[BigInt] = new Iterator[BigInt] {
+    var i: BigInt = 0
     var a: BigInt = 0
-    var b: BigInt = 0
+    var b: BigInt = 1
     override val hasNext = true
     override def next(): BigInt = {
-      if (a == 0) {
-        a = 1
-        1
-      } else if (b == 0) {
-        b = 1
+      if (i == 0) {
+        i += 1
+        0
+      } else if (i == 1) {
+        i += 1
         1
       } else {
         val tmp = b
@@ -73,7 +74,7 @@ object Common {
     factors(n).filter(prime).toSet
   }
 
-  def d: Long => Long = memo { (n: Long) =>
+  val d: Long => Long = memo { (n: Long) =>
     1L + factors(n).sum
   }
 
