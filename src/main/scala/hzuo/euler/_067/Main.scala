@@ -1,5 +1,7 @@
 package hzuo.euler._067
 
+import hzuo.euler.Common._
+
 object Main extends App {
 
   val lines = scala.io.Source
@@ -14,12 +16,6 @@ object Main extends App {
         word <- line.split("""\s""")
       } yield word.toInt
     }
-
-  def memo[A, B](f: (A => B) => (A => B)): A => B = {
-    val cache = collection.mutable.Map.empty[A, B]
-    def caching(x: A): B = cache.getOrElseUpdate(x, f(caching)(x))
-    caching
-  }
 
   def max(ns: Array[Array[Int]]) = {
     val anchored = {
@@ -37,7 +33,7 @@ object Main extends App {
           parentMaxes.max + me
         }
       }
-      memo(f)
+      memoRecursive(f)
     }
     val lastRow = ns.length - 1
     (for (c <- 0 to lastRow) yield anchored(lastRow, c)).max

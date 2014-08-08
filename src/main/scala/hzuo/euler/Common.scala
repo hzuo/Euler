@@ -8,6 +8,17 @@ object Common {
     println(System.currentTimeMillis - start)
   }
 
+  def memo[A, B](f: A => B): A => B = {
+    val cache = collection.mutable.Map.empty[A, B]
+    (a: A) => cache.getOrElseUpdate(a, f(a))
+  }
+
+  def memoRecursive[A, B](f: (A => B) => (A => B)): A => B = {
+    val cache = collection.mutable.Map.empty[A, B]
+    def caching(x: A): B = cache.getOrElseUpdate(x, f(caching)(x))
+    caching
+  }
+
   def fibs(): Iterator[BigInt] = new Iterator[BigInt] {
     var a: BigInt = 0
     var b: BigInt = 0
@@ -28,7 +39,10 @@ object Common {
     }
   }
 
-  def factorial(n: BigInt): BigInt = if (n == 0) 1 else n * factorial(n - 1)
+  // no overlapping subproblems, no need for memoRecursive
+  val factorial: BigInt => BigInt = memo { (n: BigInt) =>
+    if (n == 0) 1 else n * factorial(n - 1)
+  }
 
   def streamFrom(n: Long) = Stream.iterate(n)(_ + 1L)
 
@@ -36,14 +50,15 @@ object Common {
     def divides(n: Long) = n % m == 0L
   }
 
-  def divisors(n: Long): Set[(Long, Long)] = {
+  // TODO: range-based memoization
+  val divisors: Long => Set[(Long, Long)] = memo { (n: Long) =>
     assume(n >= 1)
     val bound = Math.sqrt(n).toLong
     val divisors = for (x <- (2L to bound) if (x divides n)) yield (x, n / x)
     divisors.toSet
   }
 
-  def factors(n: Long): Set[Long] = {
+  val factors: Long => Set[Long] = memo { (n: Long) =>
     divisors(n).flatMap { case (a, b) => Set(a, b) }
   }
 
@@ -54,11 +69,12 @@ object Common {
 
   val primes: Stream[Long] = streamFrom(2L).filter(prime)
 
-  // TODO: much repeated work here, see 451 to fix
-  def primeFactors(n: Long): Set[Long] = {
+  val primeFactors: Long => Set[Long] = memo { (n: Long) =>
     factors(n).filter(prime).toSet
   }
 
-  def d(n: Long): Long = 1L + factors(n).sum
+  def d: Long => Long = memo { (n: Long) =>
+    1L + factors(n).sum
+  }
 
 }

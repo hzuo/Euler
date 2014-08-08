@@ -17,21 +17,22 @@ object Main extends App {
     else Abundant
   }
 
-  val target = 1 to 28123
-  val table: Map[Int, Type] = target.map(n => (n, classify(n)))(collection.breakOut)
+  val limit = 28123
+  val universe = 1 to limit
   val isSumOfAbundants =
     locally {
       for {
-        i <- target
-        if table(i) == Abundant
-        j <- target
-        if table(j) == Abundant
+        i <- universe
+        if classify(i) == Abundant
+        j <- universe
+        if classify(j) == Abundant
         sumOfAbundants = i + j
-        if sumOfAbundants <= 28123
+        if sumOfAbundants <= limit
       } yield sumOfAbundants
     }.toSet
+  println(isSumOfAbundants.last)
 
-  val answer = target.toStream.filterNot(isSumOfAbundants).sum
+  val answer = universe.filterNot(isSumOfAbundants).sum
   println(answer)
 
 }
