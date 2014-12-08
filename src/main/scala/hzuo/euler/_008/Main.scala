@@ -26,8 +26,8 @@ object Main extends App {
 71636269561882670428252483600823257530420752963450
     """
 
-  val digits = raw.toList.filter(!_.isWhitespace).map(_.toString.toInt)
-  val products = digits.sliding(5).map { xs => xs.reduce(_ * _) }
+  val digits = raw.toList.filter(!_.isWhitespace).map(d => BigInt(d.toString))
+  val products = digits.sliding(13).map { xs => xs.reduce(_ * _) }
   println(products.max)
 
 }

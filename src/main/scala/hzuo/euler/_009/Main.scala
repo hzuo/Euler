@@ -13,12 +13,14 @@ object Main extends App {
     }.toList
   }
 
-  val answer = for {
+  val answers = for {
     solution <- solutions(1000, 3)
     if solution.forall(_ > 0)
     a :: b :: c :: Nil = solution
     if pythagoreanTriple(a, b, c)
   } yield a * b * c
-  println(answer)
+  val distinctAnswers = answers.toSet
+  assert(distinctAnswers.size == 1)
+  println(distinctAnswers.head)
 
 }
