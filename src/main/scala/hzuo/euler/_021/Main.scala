@@ -5,7 +5,7 @@ import hzuo.euler.Common._
 object Main extends App {
 
   // fixpoints of d compose d with an additional requirement
-  def amicable(a: BigInt) = {
+  def amicable(a: Long) = {
     val b = d(a)
     a != b && d(b) == a
   }

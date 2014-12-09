@@ -7,7 +7,7 @@ import hzuo.euler.Common._
 object V1 extends App {
 
   def coprime(n: Long) = {
-    (m: Long) => !primeFactors(n).exists(_ divides m)
+    (m: Long) => !primeFactors(n).exists(m % _ == 0)
   }
 
   def I(x: Long): Long = {

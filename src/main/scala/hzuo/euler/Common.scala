@@ -45,32 +45,32 @@ object Common {
     if (n == 0) 1 else n * factorial(n - 1)
   }
 
-  def streamFrom(n: BigInt) = Stream.iterate(n)(_ + 1)
+  def streamFrom(n: Long) = Stream.iterate(n)(_ + 1)
 
   // TODO: range-based memoization
-  val divisors: BigInt => Set[(BigInt, BigInt)] = memo { (n: BigInt) =>
+  val divisors: Long => Set[(Long, Long)] = memo { (n: Long) =>
     assume(n >= 1)
     val bound = Math.sqrt(n.toDouble).toLong
-    val divisors = for (x <- (2.n to bound) if (x divides n)) yield (x, n / x)
+    val divisors = for (x <- (2L to bound) if n % x == 0) yield (x, n / x)
     divisors.toSet
   }
 
-  val factors: BigInt => Set[BigInt] = memo { (n: BigInt) =>
+  val factors: Long => Set[Long] = memo { (n: Long) =>
     divisors(n).flatMap { case (a, b) => Set(a, b) }
   }
 
-  def prime(n: BigInt): Boolean = {
+  def isPrime(n: Long): Boolean = {
     assume(n > 1)
     divisors(n).isEmpty
   }
 
-  val primes: Stream[BigInt] = streamFrom(2L).filter(prime)
+  val primes: Stream[Long] = streamFrom(2).filter(isPrime)
 
-  val primeFactors: BigInt => Set[BigInt] = memo { (n: BigInt) =>
-    factors(n).filter(prime).toSet
+  val primeFactors: Long => Set[Long] = memo { (n: Long) =>
+    factors(n).filter(isPrime).toSet
   }
 
-  val d: BigInt => BigInt = memo { (n: BigInt) =>
+  val d: Long => Long = memo { (n: Long) =>
     1L + factors(n).sum
   }
 
@@ -98,7 +98,6 @@ object Common {
 
   implicit class MyBigInt(x: BigInt) {
     def digits: Seq[BigInt] = x.toString.map(_.toString.n)
-    def divides(n: BigInt) = n % x == 0
   }
 
   type Fraction = (BigInt, BigInt)

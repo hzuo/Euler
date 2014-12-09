@@ -10,7 +10,7 @@ object Main extends App {
     val e: Int => Int = eval(a, b)
     Stream.from(0).takeWhile { x =>
       val y = e(x)
-      y > 1 && prime(y)
+      y > 1 && isPrime(y)
     }.length
   }
 

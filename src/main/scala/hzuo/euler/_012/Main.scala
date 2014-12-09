@@ -4,7 +4,7 @@ import hzuo.euler.Common._
 
 object Main extends App {
 
-  def factorsWithTrivial(x: BigInt): Set[BigInt] = {
+  def factorsWithTrivial(x: Long): Set[Long] = {
     if (x == 1.n) {
       Set(1)
     } else {
