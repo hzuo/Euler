@@ -47,7 +47,7 @@ object Common {
 
   def streamFrom(n: Long) = Stream.iterate(n)(_ + 1L)
 
-  implicit class Divides(val m: Long) extends AnyVal {
+  implicit class MyLong(val m: Long) extends AnyVal {
     def divides(n: Long) = n % m == 0L
   }
 
@@ -88,11 +88,19 @@ object Common {
     }
   }
 
-  type Fraction = (BigInt, BigInt)
-
-  implicit class ToFraction(x: (Int, Int)) {
-    def toFraction: Fraction = (BigInt(x._1), BigInt(x._2))
+  implicit class MyInt(val x: Int) extends AnyVal {
+    def n: BigInt = BigInt(x)
   }
+
+  implicit class MyString(x: String) {
+    def n: BigInt = BigInt(x)
+  }
+
+  implicit class MyBigInt(x: BigInt) {
+    def digits: Seq[BigInt] = x.toString.map(_.toString.n)
+  }
+
+  type Fraction = (BigInt, BigInt)
 
   implicit class RichFraction(a: Fraction) {
     def reduced: Fraction = a match {

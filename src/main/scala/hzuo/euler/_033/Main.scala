@@ -4,9 +4,9 @@ import hzuo.euler.Common._
 
 object Main extends App {
 
-  def cancel(a: Int, b: Int) = {
-    val aDigits = List(a / 10, a % 10)
-    val bDigits = List(b / 10, b % 10)
+  def cancel(a: BigInt, b: BigInt) = {
+    val aDigits = a.digits
+    val bDigits = b.digits
     val intersection = aDigits.intersect(bDigits)
     for (common <- intersection) yield {
       (aDigits.diff(List(common)).head, bDigits.diff(List(common)).head)
@@ -14,12 +14,12 @@ object Main extends App {
   }
 
   val answers = for {
-    a <- 10 until 99
-    b <- (a + 1) to 99
+    a <- 10.n until 99.n
+    b <- (a + 1) to 99.n
     if !(a % 10 == 0 && b % 10 == 0)
     (aPart, bPart) <- cancel(a, b)
-    if (a, b).toFraction.reduced == (aPart, bPart).toFraction.reduced
-  } yield (a, b).toFraction
+    if (a, b).reduced == (aPart, bPart).reduced
+  } yield (a, b)
   println(answers.reduceLeft(_ * _).reduced._2)
 
 }
