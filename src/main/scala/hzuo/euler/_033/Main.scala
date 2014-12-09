@@ -9,7 +9,7 @@ object Main extends App {
     val bDigits = b.digits
     val intersection = aDigits.intersect(bDigits)
     for (common <- intersection) yield {
-      (aDigits.diff(List(common)).head, bDigits.diff(List(common)).head)
+      (aDigits.diff(List(common)).head.n, bDigits.diff(List(common)).head.n)
     }
   }
 

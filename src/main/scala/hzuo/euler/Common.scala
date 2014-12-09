@@ -60,8 +60,7 @@ object Common {
   }
 
   def isPrime(n: Long): Boolean = {
-    assume(n > 1)
-    divisors(n).isEmpty
+    n > 1 && divisors(n).isEmpty
   }
 
   val primes: Stream[Long] = streamFrom(2).filter(isPrime)
@@ -97,7 +96,11 @@ object Common {
   }
 
   implicit class MyBigInt(x: BigInt) {
-    def digits: Seq[BigInt] = x.toString.map(_.toString.n)
+    def digits: IndexedSeq[Int] = x.toString.map(_.toString.toInt)
+  }
+
+  def concat(xs: Seq[Int]): BigInt = {
+    xs.foldLeft("")(_ + _).toInt
   }
 
   type Fraction = (BigInt, BigInt)

@@ -1,13 +1,13 @@
 package hzuo.euler._032
 
+import hzuo.euler.Common._
+
 object Main extends App {
 
-  def concat(xs: Seq[Int]): Int = {
-    xs.foldLeft("")(_ + _).toInt
-  }
-
   val identities = for {
-    digits <- (1 to 9).permutations
+    // possible scala bug here?
+    // permutations iterator allegedly distinct?
+    digits <- (1 to 9).permutations.toSet[IndexedSeq[Int]]
     split <- 1 to 2
     a = concat(digits.slice(0, split))
     b = concat(digits.slice(split, 5))
