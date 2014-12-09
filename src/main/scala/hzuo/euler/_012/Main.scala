@@ -4,16 +4,16 @@ import hzuo.euler.Common._
 
 object Main extends App {
 
-  def factorsWithTrivial(x: Long): Set[Long] = {
-    if (x == 1L) {
-      Set(1L)
+  def factorsWithTrivial(x: BigInt): Set[BigInt] = {
+    if (x == 1.n) {
+      Set(1)
     } else {
-      factors(x) + 1L + x
+      factors(x) + 1 + x
     }
   }
 
   val triangular = Stream.from(1).scanLeft(0)(_ + _).tail
-  val answer = triangular.filter(factorsWithTrivial(_).size > 5).head
+  val answer = triangular.filter(factorsWithTrivial(_).size > 500).head
   println(answer)
 
 }
