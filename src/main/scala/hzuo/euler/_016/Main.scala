@@ -1,8 +1,9 @@
 package hzuo.euler._016
 
+import hzuo.euler.Common._
+
 object Main extends App {
 
-  val answer = BigInt(2).pow(1000).toString.map(_.toString.toInt).sum
-  println(answer)
+  println(2.n.pow(1000).digits.sum)
 
 }
