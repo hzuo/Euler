@@ -1,27 +1,11 @@
 package hzuo.euler._026
 
+import hzuo.euler.Common._
+
 object Main extends App {
 
-  type Fraction = (BigInt, BigInt)
-
-  def gcd(n: BigInt, m: BigInt): BigInt = {
-    if (m > n) {
-      gcd(m, n)
-    } else if (m == 0) {
-      m
-    } else {
-      gcd(m, n % m)
-    }
-  }
-
-  def reduce(f: Fraction): Fraction = f match {
-    case (n, d) =>
-      val factor = gcd(n, d)
-      (n / factor, d / factor)
-  }
-
   def isZeroPeriod(f: Fraction) = {
-    val (n, d) = reduce(f)
+    val (n, d) = f.reduced
     d == 1 || d % 2 == 0 || d % 5 == 0
   }
 

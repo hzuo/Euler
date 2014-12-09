@@ -78,4 +78,36 @@ object Common {
     1L + factors(n).sum
   }
 
+  def gcd(n: BigInt, m: BigInt): BigInt = {
+    if (m > n) {
+      gcd(m, n)
+    } else if (m == 0) {
+      n
+    } else {
+      gcd(m, n % m)
+    }
+  }
+
+  type Fraction = (BigInt, BigInt)
+
+  implicit class ToFraction(x: (Int, Int)) {
+    def toFraction: Fraction = (BigInt(x._1), BigInt(x._2))
+  }
+
+  implicit class RichFraction(a: Fraction) {
+    def reduced: Fraction = a match {
+      case (n, d) =>
+        val factor = gcd(n, d)
+        (n / factor, d / factor)
+    }
+    def +(b: Fraction): Fraction = (a, b) match {
+      case ((c, d), (e, f)) =>
+        ((c * f + e * d), (d * f))
+    }
+    def *(b: Fraction): Fraction = (a, b) match {
+      case ((c, d), (e, f)) =>
+        (c * e, d * f)
+    }
+  }
+
 }

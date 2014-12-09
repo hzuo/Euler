@@ -9,11 +9,12 @@ object Main extends App {
     else if (amount < 0 || denominations.isEmpty) List()
     else {
       val d = denominations.head
+      val maxCanFit = amount / d
       for {
-        n <- Stream.from(0).takeWhile(d * _ <= amount).toList
+        n <- (0 to maxCanFit).toList
         remaining = amount - (d * n)
         decomposed <- decompose(denominations.tail, amount - (d * n))
-      } yield decomposed + (d -> n)
+      } yield if (n == 0) decomposed else decomposed + (d -> n)
     }
   }
 
